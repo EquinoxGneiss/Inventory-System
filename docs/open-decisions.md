@@ -1,0 +1,20 @@
+# Open decisions (pending product-owner sign-off)
+
+These come from `implementation.md` §18. Until each one is approved, the implementation follows the **conservative default** in the second column. Phase 1 builds no behaviour that would lock in an alternative.
+
+| #   | Decision                                     | Conservative default (in use)                                                                                                                  | Status           |
+| --- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| 1   | Product catalogs: per organization or shared | Separate catalog per organization; SKU unique per org                                                                                          | Pending sign-off |
+| 2   | Supply topology                              | One central supply warehouse per organization; only Org Admin releases from it                                                                 | Pending sign-off |
+| 3   | Location structure                           | Buildings receive into a single building location; no building sub-locations or tracked building consumption in v1                             | Pending sign-off |
+| 4   | Units of measure                             | Base units only; no pack-to-piece conversions                                                                                                  | Pending sign-off |
+| 5   | Reservations                                 | Partial reservation allowed; shortages wait in **Waiting for Stock** and are retried manually (no auto-retry)                                  | Pending sign-off |
+| 6   | Approvals                                    | Sole Org Admin approval; no thresholds or second approver                                                                                      | Pending sign-off |
+| 7   | Discrepancies                                | Receiver records the shortage or damage with a reason; Org Admin resolves it through a follow-up posting; returns need Org Admin authorization | Pending sign-off |
+| 8   | Adjustments                                  | Org Admin posts every adjustment, positive or negative; a reason code is mandatory; count sign-off by the reviewer                             | Pending sign-off |
+| 9   | Valuation                                    | No costing in v1; valuation screens stay hidden                                                                                                | Pending sign-off |
+| 10  | Notifications                                | In-app only; no email, SLA or escalation in v1                                                                                                 | Pending sign-off |
+| 11  | Imports                                      | Opening balances loaded through a reviewed adjustment posting with sign-off                                                                    | Pending sign-off |
+| 12  | Retention                                    | Keep audit events and ledger indefinitely; attachment and backup retention follow the Supabase plan defaults until set                         | Pending sign-off |
+
+Record each approval here with its date and approver before production go-live.

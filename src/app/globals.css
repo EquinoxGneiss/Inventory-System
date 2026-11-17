@@ -1,0 +1,159 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Dark styles only apply under an explicit .dark ancestor (never set in v1),
+   so OS dark mode can't partially restyle the light-only theme. */
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * InventoryOS design tokens (UI/UX spec §8.2, implementation.md §8.1).
+ * Light theme only for v1 (spec §15 "Light default"). Components read the
+ * semantic shadcn variables below, which are mapped onto the --erp-* tokens,
+ * or the erp-* Tailwind colors exposed in @theme. Never hardcode hex values
+ * inside components.
+ */
+:root {
+  /* Brand + surfaces */
+  --erp-brand: #65445f;
+  --erp-brand-hover: #50354b;
+  --erp-accent: #806178;
+  --erp-brand-tint: #f4eff3;
+  --erp-canvas: #f7f8fa;
+  --erp-surface: #ffffff;
+  --erp-surface-muted: #f1f3f6;
+
+  /* Text */
+  --erp-text: #1d2939;
+  --erp-text-muted: #667085; /* ≥4.5:1 on canvas/surface; not on surface-muted */
+  --erp-text-subtle: #475467; /* use on surface-muted */
+
+  /* Lines */
+  --erp-border: #dde2e8;
+  --erp-border-strong: #868e9c; /* 3.3:1 non-text contrast for input outlines */
+
+  /* Semantic */
+  --erp-success: #18794e;
+  --erp-warning: #a65c00;
+  --erp-danger: #b42318;
+  --erp-info: #175cd3;
+
+  /* Status badge tints (text color on tint verified ≥4.5:1) */
+  --erp-success-tint: #ecfdf3;
+  --erp-warning-tint: #fff6e5;
+  --erp-danger-tint: #fef3f2;
+  --erp-info-tint: #eff4ff;
+
+  /* Layout metrics */
+  --erp-header-height: 52px;
+  --erp-modulebar-height: 42px;
+
+  /* shadcn semantic mapping */
+  --background: var(--erp-canvas);
+  --foreground: var(--erp-text);
+  --card: var(--erp-surface);
+  --card-foreground: var(--erp-text);
+  --popover: var(--erp-surface);
+  --popover-foreground: var(--erp-text);
+  --primary: var(--erp-brand);
+  --primary-foreground: #ffffff;
+  --secondary: var(--erp-surface-muted);
+  --secondary-foreground: var(--erp-text);
+  --muted: var(--erp-surface-muted);
+  --muted-foreground: var(--erp-text-muted);
+  --accent: var(--erp-brand-tint);
+  --accent-foreground: var(--erp-brand-hover);
+  --destructive: var(--erp-danger);
+  --border: var(--erp-border);
+  --input: var(--erp-border-strong);
+  --ring: var(--erp-accent);
+  --radius: 0.5rem; /* 8px panels; fields use rounded-md (6.4px) */
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-heading: var(--font-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-erp-brand: var(--erp-brand);
+  --color-erp-brand-hover: var(--erp-brand-hover);
+  --color-erp-accent: var(--erp-accent);
+  --color-erp-brand-tint: var(--erp-brand-tint);
+  --color-erp-canvas: var(--erp-canvas);
+  --color-erp-surface: var(--erp-surface);
+  --color-erp-surface-muted: var(--erp-surface-muted);
+  --color-erp-text: var(--erp-text);
+  --color-erp-text-muted: var(--erp-text-muted);
+  --color-erp-text-subtle: var(--erp-text-subtle);
+  --color-erp-border: var(--erp-border);
+  --color-erp-border-strong: var(--erp-border-strong);
+  --color-erp-success: var(--erp-success);
+  --color-erp-warning: var(--erp-warning);
+  --color-erp-danger: var(--erp-danger);
+  --color-erp-info: var(--erp-info);
+  --color-erp-success-tint: var(--erp-success-tint);
+  --color-erp-warning-tint: var(--erp-warning-tint);
+  --color-erp-danger-tint: var(--erp-danger-tint);
+  --color-erp-info-tint: var(--erp-info-tint);
+
+  --spacing-erp-header: var(--erp-header-height);
+  --spacing-erp-modulebar: var(--erp-modulebar-height);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    color-scheme: light;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  /* Visible keyboard focus for plain links and custom controls (WCAG 2.4.7). */
+  a:focus-visible,
+  [tabindex]:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--erp-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  /* Tabular figures keep quantity columns aligned. */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
