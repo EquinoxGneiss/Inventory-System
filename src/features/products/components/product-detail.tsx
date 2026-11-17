@@ -1,5 +1,6 @@
 import {
   ArrowLeftRight,
+  ChartColumn,
   ClipboardList,
   FileText,
   PackageCheck,
@@ -28,6 +29,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatDateTime, formatQuantity } from "@/lib/format";
+import { ProductForecastPanel } from "@/features/forecasting/components/product-forecast-panel";
+import type { ProductForecast } from "@/features/forecasting/data/forecast-repository";
+import { FORECAST_STATUS_META } from "@/features/forecasting/domain/forecast";
 import { subtractDecimal } from "@/lib/validation/quantity";
 import type { ProductDetail } from "../data/product-repository";
 import { PRODUCT_TYPE_LABELS, type ProductMovement } from "../types";
@@ -37,6 +41,8 @@ export interface ProductDetailViewProps {
   movements: ProductMovement[];
   requestCount: number;
   scopeLabel: string;
+  /** Next-month forecast; null when the role can't see stock or the product is archived. */
+  forecast: ProductForecast | null;
 }
 
 const LOCATION_TYPE_LABELS: Record<string, string> = {
@@ -52,6 +58,7 @@ export function ProductDetailView({
   movements,
   requestCount,
   scopeLabel,
+  forecast,
 }: ProductDetailViewProps) {
   const { product, stock, isLowStock, locations } = detail;
   const uom = product.uom.code;
@@ -211,6 +218,14 @@ export function ProductDetailView({
     });
   }
 
+  if (forecast) {
+    tabs.push({
+      value: "forecast",
+      label: "Forecast",
+      content: <ProductForecastPanel forecast={forecast} />,
+    });
+  }
+
   tabs.push(
     {
       value: "attachments",
@@ -280,6 +295,15 @@ export function ProductDetailView({
                 href={`?tab=movements`}
               />
             </>
+          ) : null}
+          {forecast ? (
+            <SmartButton
+              icon={ChartColumn}
+              label={`Need (Dec) · ${FORECAST_STATUS_META[forecast.row.status].label}`}
+              value={formatQuantity(forecast.row.need, uom)}
+              href={`?tab=forecast`}
+              tone={forecast.row.status === "covered" ? "default" : "warning"}
+            />
           ) : null}
           <SmartButton
             icon={ClipboardList}

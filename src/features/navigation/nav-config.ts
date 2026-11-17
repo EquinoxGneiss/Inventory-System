@@ -139,6 +139,12 @@ export const INVENTORY_NAV: readonly NavModuleConfig[] = [
     match: "/inventory/reports",
     permissions: ["stock:read", "audit:read"],
     items: [
+      {
+        label: "Stock Forecast",
+        href: "/inventory/reports/forecast",
+        status: "available",
+        permissions: ["stock:read"],
+      },
       { label: "On Hand", status: "planned", phase: 6, permissions: ["stock:read"] },
       { label: "Availability", status: "planned", phase: 6, permissions: ["stock:read"] },
       { label: "Movement", status: "planned", phase: 6, permissions: ["stock:read"] },

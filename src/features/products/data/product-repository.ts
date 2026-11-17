@@ -62,6 +62,11 @@ function clampZero(value: string): string {
   return isNegativeDecimal(value) ? "0" : value;
 }
 
+/** Available stock (on hand − reserved at internal locations), never below zero. */
+export function availableStock(product: Product): string {
+  return clampZero(summarizeStock(product).available);
+}
+
 function orgProducts(session: SessionContext): Product[] {
   return DEMO_DATASET.products.filter(
     (product) => product.organizationId === session.organization.id,

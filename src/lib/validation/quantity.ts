@@ -129,3 +129,11 @@ export function isNegativeDecimal(value: string): boolean {
 export function decimalFromMinorUnits(minorUnits: number, precision: number): string {
   return fromScaled(BigInt(minorUnits), precision);
 }
+
+/**
+ * Convert a decimal string to an integer count of minor units (10^-precision).
+ * Digits beyond the precision are truncated; callers validate precision first.
+ */
+export function minorUnitsFromDecimal(value: string, precision: number): number {
+  return Number(toScaled(value, precision));
+}
