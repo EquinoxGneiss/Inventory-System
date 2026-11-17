@@ -9,6 +9,8 @@ const PAGES = [
   "/inventory/products/prd-nbh-ofc-0002",
   "/inventory/requests",
   "/inventory/requests/new",
+  "/inventory/reports/forecast",
+  "/inventory/products/prd-nbh-jan-0008?tab=forecast",
 ];
 
 test.describe("Accessibility baseline (WCAG 2.2 AA via axe)", () => {

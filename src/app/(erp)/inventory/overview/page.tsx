@@ -1,5 +1,6 @@
 import {
   AlarmClock,
+  ChartColumn,
   ClipboardCheck,
   ClipboardList,
   FilePen,
@@ -32,6 +33,8 @@ import {
   listRecentRequests,
 } from "@/features/requests/data/request-repository";
 import { REQUEST_STATUS_META } from "@/features/requests/domain/request-status";
+import { countShortNextMonth } from "@/features/forecasting/data/forecast-repository";
+import { FORECAST_MONTH_LABEL } from "@/features/forecasting/domain/forecast";
 
 export const metadata: Metadata = { title: "Overview" };
 
@@ -68,6 +71,7 @@ async function OverviewSection() {
   const canReadRequests = hasPermission(session, "requests:read");
   const queues = canReadRequests ? countRequestQueues(session) : null;
   const lowStockCount = countLowStockProducts(session);
+  const shortNextMonth = countShortNextMonth(session);
 
   const cards: CardSpec[] = [
     {
@@ -146,6 +150,16 @@ async function OverviewSection() {
       icon: ShieldCheck,
       count: lowStockCount,
       tone: "attention",
+      permissions: ["stock:read"],
+    },
+    {
+      key: "short-next-month",
+      title: "Short Next Month",
+      description: `Forecast need for ${FORECAST_MONTH_LABEL} exceeds stock`,
+      href: "/inventory/reports/forecast?filter=short",
+      icon: ChartColumn,
+      count: shortNextMonth,
+      tone: "critical",
       permissions: ["stock:read"],
     },
   ];

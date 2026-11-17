@@ -7,6 +7,7 @@ import { ERPPageHeader, PageContainer } from "@/components/erp/page-header/erp-p
 import { RecordSkeleton } from "@/components/erp/record-form/record-skeleton";
 import { hasPermission } from "@/lib/authorization/permissions";
 import { getSessionContext } from "@/lib/demo/session";
+import { getProductForecast } from "@/features/forecasting/data/forecast-repository";
 import { ProductDetailView } from "@/features/products/components/product-detail";
 import {
   countProductRequests,
@@ -55,6 +56,7 @@ async function ProductDetailSection({
         detail={detail}
         movements={listProductMovements(session, productId)}
         requestCount={countProductRequests(session, productId)}
+        forecast={getProductForecast(session, productId)}
         scopeLabel={`${warehouseScopeLabel(session)} (central warehouse)`}
       />
     </>

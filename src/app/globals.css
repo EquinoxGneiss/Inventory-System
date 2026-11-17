@@ -44,6 +44,18 @@
   --erp-danger-tint: #fef3f2;
   --erp-info-tint: #eff4ff;
 
+  /*
+   * Chart roles (dataviz emphasis form; validated with the dataviz palette
+   * script): context = de-emphasis gray (3.3:1), focus = accent violet,
+   * focus-light = second stacked step (2.75:1, relieved by labels + table view).
+   */
+  --erp-chart-context: #868e9c;
+  --erp-chart-focus: #6250d6;
+  --erp-chart-focus-light: #9c90ee;
+  --erp-chart-grid: #e8ebef;
+  --erp-chart-axis: #c3c8d1;
+  --erp-chart-reference: #344054;
+
   /* Layout metrics */
   --erp-header-height: 52px;
   --erp-modulebar-height: 42px;
@@ -114,6 +126,12 @@
   --color-erp-warning-tint: var(--erp-warning-tint);
   --color-erp-danger-tint: var(--erp-danger-tint);
   --color-erp-info-tint: var(--erp-info-tint);
+  --color-erp-chart-context: var(--erp-chart-context);
+  --color-erp-chart-focus: var(--erp-chart-focus);
+  --color-erp-chart-focus-light: var(--erp-chart-focus-light);
+  --color-erp-chart-grid: var(--erp-chart-grid);
+  --color-erp-chart-axis: var(--erp-chart-axis);
+  --color-erp-chart-reference: var(--erp-chart-reference);
 
   --spacing-erp-header: var(--erp-header-height);
   --spacing-erp-modulebar: var(--erp-modulebar-height);
